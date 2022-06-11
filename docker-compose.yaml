@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  server:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE=postgresql
+      - DB_PASSWORD=postgres
+      - DB_USERNAME=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=postgres
+    volumes:
+      - ./api/:/api
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: 'bin_entrypoints/run_dev.sh'
+    user: root
+    ports:
+      - 8943:8943
+    depends_on:
+      - db
+    platform: linux/amd64
+
+  db:
+    image: postgres:13.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_SERVER=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=postgres 
+
+volumes:
+    postgres_data:
