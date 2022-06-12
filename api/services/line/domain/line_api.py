@@ -1,5 +1,5 @@
 from aiolinebot import AioLineBotApi
-from linebot.models import TextSendMessage, TextMessage
+from linebot.models import TextMessage, TextSendMessage
 
 
 class LineFacade:
