@@ -1,6 +1,8 @@
 import os
-import valorant
+
 from dotenv import load_dotenv
+
+import valorant
 
 load_dotenv()
 KEY = os.environ["VALPY-KEY"]
