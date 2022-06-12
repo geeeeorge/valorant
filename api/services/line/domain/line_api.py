@@ -1,5 +1,5 @@
-from linebot import LineBotApi
-from linebot.models import TextSendMessage
+from aiolinebot import AioLineBotApi
+from linebot.models import TextSendMessage, TextMessage
 
 
 class LineFacade:
@@ -7,7 +7,7 @@ class LineFacade:
     """
 
     def __init__(self, channel_access_token: str) -> None:
-        self.line_bot_api = LineBotApi(channel_access_token)
+        self.line_bot_api = AioLineBotApi(channel_access_token)
 
     def get_user_id(self) -> str:
         profile = self.line_bot_api.get_profile()
@@ -17,6 +17,10 @@ class LineFacade:
         # TextSendMessageの型に変換
         messages = [TextSendMessage(text) for text in texts]
         self.line_bot_api.push_message(use_id, messages)
+
+    def reply_message_async(self, user_id: str, texts: list[str]) -> None:
+        messages = [TextMessage(text) for text in texts]
+        self.line_bot_api.reply_message_async(user_id, messages)
 
 
 class GetUserIDAdapter:

@@ -1,3 +1,4 @@
+aiolinebot==0.4.1
 alembic==1.5.2
 anyio==3.5.0
 asgiref==3.5.0
