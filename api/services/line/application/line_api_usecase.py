@@ -1,4 +1,4 @@
-from ..domain.line_api import SendPushMessageService
+from ..domain.send_push_message_service import SendPushMessageService
 
 
 class LineApiUsecase:

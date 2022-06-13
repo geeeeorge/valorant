@@ -1,12 +1,9 @@
 import os
 
-from fastapi import APIRouter, BackgroundTasks, Request
-from linebot import WebhookParser
+from fastapi import APIRouter, Request
 
 from ...adapter.controllers.healthz import HealthzController
 from ...adapter.controllers.line_api_controller import LineApiController
-
-# parser = WebhookParser(channel_secret=os.environ.get("LINEBOT_CHANNEL_SECRET"))
 
 
 def get_route(
@@ -24,27 +21,12 @@ def get_route(
         return healthz_controller.get()
 
     @router.post("/message")
-    async def post_message(text: str):
-        line_api_controller.send_push_message(os.environ.get("USER_ID"), text)
+    async def post_message(texts: list[str]):
+        line_api_controller.send_push_message(os.environ.get("USER_ID"), texts)
 
-    # @router.post("/callback")
-    # async def callback(request: Request, background_tasks: BackgroundTasks):
-    #    events = parser.parse(
-    #        (await request.body()).decode("utf-8"),
-    #        request.headers.get("X-Line-Signature", "")
-    #    )
-    #
-    #    background_tasks.add_task(handle_events, events=events)
-    #
-    #    return "ok"
-
-    # async def handle_events(events):
-    #    for event in events:
-    #        try:
-    #            await line_api.reply_message_async(
-    #                event.reply_token,
-    #                TextSendMessage(event.message.text))
-    #        except Exception:
-    #            pass
+    @router.post("/callback")
+    async def callback(request: Request):
+        user_id = await line_api_controller.get_user_id(request)
+        line_api_controller.send_push_message(user_id, ['現在準備中です'])
 
     return router

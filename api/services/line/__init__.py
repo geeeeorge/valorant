@@ -1,7 +1,6 @@
 from .adapter.controllers.healthz import HealthzController
 from .adapter.controllers.line_api_controller import LineApiController
 from .application.line_api_usecase import LineApiUsecase
-from .infrastructure.db_drivers.engine import get_engine
 from .infrastructure.servers.route import get_route
 
 
