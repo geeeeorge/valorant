@@ -1,0 +1,1 @@
+{"message": {"id": "16251177417060", "text": "\u304b", "type": "text"}, "mode": "active", "replyToken": "aa01a25bd5324af7871e286a9c44f095", "source": {"type": "user", "userId": "Uf07042993fe0fcd874e7604837858489"}, "timestamp": 1655071979813, "type": "message"}
